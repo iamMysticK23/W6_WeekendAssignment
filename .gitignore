@@ -1,0 +1,4 @@
+theblog_env
+.env
+migrations
+__pycache__
