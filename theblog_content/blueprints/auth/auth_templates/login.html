@@ -1,0 +1,74 @@
+
+
+
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<div class="container p-5 mt-5"> 
+    <div class="card"> 
+        <form class="row g-0" method="POST">
+             <div class="col-md-6"> 
+                <div class="h-100 d-flex justify-content-center align-items-center">
+                     <div class="py-4 px-3">
+                        {{ form.hidden_tag() }}
+                         <h4 class="text-center">LOGIN</h4> 
+                         <div class="row g-2 mt-1"> 
+                                </div> 
+                                <div class="row mt-2">
+                                     <div class="col-md-12">
+                                        {{ form.username.label }}
+                                        {{ form.username(class='form-control mt-2', placeholder = 'jdoe' )}}
+                                        {% for error in form.username.errors %}
+                                            <span class="err-msg">{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+                                             <div class="row mt-2">
+                                                <div class="col-md-12">
+                                                    {{ form.password.label }}
+                                                    {{ form.password(class='form-control mt-2', placeholder = 'password' )}}
+                                                    {% for error in form.password.errors %}
+                                                        <span class="err-msg">{{ error }}</span>
+                                                    {% endfor %}
+                                                    </div>
+                                                    </div>                                            
+
+                                             <div class="row mt-4">
+                                                 <div class="col-md-12"> 
+                                                    {{ form.submit(class='btn btn-outline-success btn-lg') }}
+                                                 </div> 
+                                                </div> 
+                                                <div class="member mt-1"> 
+                                                    <span>Not a member? </span><a class="text-decoration-none link-success" href="{{ url_for('auth.register') }}">Register</a> 
+                                                </div>
+                                            </div> 
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6"> 
+                                        <div class="right-side-content p-4 mt-4">
+                                             <div class="content d-flex flex-column">
+                                                <img src="https://www.travelmanagers.com.au/wp-content/uploads/2012/08/AdobeStock_254529936_Railroad-to-Denali-National-Park-Alaska_750x500.jpg" width="400" height="400" class="img-fluid rounded" alt=""> 
+                                                 <h6 class="text-right font-italic p-4">The mountains are calling and I must go. - John Muir</h6> 
+                                                </div> 
+                                                <div class="right-side"> 
+                                                    <span></span>
+                                                     <span></span> 
+                                                     <span></span> 
+                                                     <span></span> 
+                                                
+                                                     <span></span> 
+                                                     <span></span> 
+                                                     <span></span>
+                                                    <span></span>
+                                                 </div> 
+                                                </div>
+                                             </form>
+                                             </div>
+                                             </div>
+
+</div>
+
+{% endblock %}

@@ -1,10 +1,13 @@
 h1 {
-    color: rgb(93, 146, 125);
+    color: rgb(172, 205, 79);
     font-size: 60px;
 }
 
 body {
     background-color: #404040;
+    background-image: url('https://www.thephotoargus.com/wp-content/uploads/2019/04/black-and-white-lightroom-presets-040.jpg');
+    background-size: cover;
+    height: 700px;
 }
 
 .form-label {
@@ -15,6 +18,19 @@ p {
     color:white;
 }
 
+.custom-username {
+    color: rgb(172, 205, 79); /* Replace with your desired color code */
+}
+
+.user_info {
+    color: white;
+    text-align: left;
+}
+
+.card-text-role{
+    font-weight: bold;
+    color:rgb(230, 220, 24);
+}
 
 /* this is a javascript format */
 #demo {

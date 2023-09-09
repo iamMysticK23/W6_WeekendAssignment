@@ -19,7 +19,7 @@ def load_user(user_id):
     return Users.query.get(user_id)
 
 # Users of blog
-class Users(db.Model):
+class Users(db.Model, UserMixin):
     user_id = db.Column(db.String, primary_key=True)
     first_name = db.Column(db.String(50), nullable=False)
     last_name = db.Column(db.String(50), nullable=False)
@@ -27,6 +27,8 @@ class Users(db.Model):
     email = db.Column(db.String(150), nullable=False, unique=True)
     password = db.Column(db.String, nullable=False)
     date_added = db.Column(db.DateTime, default=datetime.utcnow)
+    role = db.Column(db.String(10))
+   
 
 
     def __init__(self, username, email, password, first_name="", last_name=""):
@@ -36,6 +38,8 @@ class Users(db.Model):
         self.username = username
         self.email = email
         self.password = self.set_password(password) # hash pw for security
+    
+   
 
     def set_id(self):
         return str(uuid.uuid4())
@@ -45,11 +49,13 @@ class Users(db.Model):
 
     def set_password(self, password):
         return generate_password_hash(password)
+    
+    # def is_active(self):
+    #     return True
+    # admin role
 
-
-
-
-
+    def is_admin(self):
+        return self.role == 'admin'
 
     def __repr__(self):
         return f" <USER: {self.username}"

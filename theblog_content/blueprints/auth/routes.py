@@ -2,7 +2,7 @@
 
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from werkzeug.security import check_password_hash
-from flask_login import login_user, logout_user
+from flask_login import login_user, logout_user, login_required, current_user
 
 # internal imports
 from theblog_content.forms import RegisterForm, LoginForm
@@ -51,3 +51,55 @@ def register():
         return redirect('/') #  add signin here
 
     return render_template('register.html', form=registerform)  
+
+
+# Log in
+@auth.route('/login', methods = ['GET', 'POST'])
+def login():
+
+    loginform = LoginForm()
+
+    if request.method == 'POST' and loginform.validate_on_submit():
+        username = loginform.username.data
+        password = loginform.password.data
+        print(username, password)
+
+        user = Users.query.filter(Users.username == username).first()
+        print(user)
+
+        if user and check_password_hash(user.password, password): # if there is a user that matches the email and the passwords match
+            login_user(user) # this we have access to because of the UserMixin we inherited
+            if user.role == 'admin':
+                flash(f" Successfully logged in admin {username}", category='success')
+                return redirect('/')
+            else:
+            # using the user_loader() function we made so now that will be the current_user of the site
+                flash(f" Successfully logged in user {username}", category='success')
+                return redirect('/')
+     
+        
+        else:
+            flash(f" Invalid username and/or password. Please try again", category='warning')
+            return redirect('/login')
+        
+    return render_template('login.html', form=loginform)
+
+@auth.route('/logout') # if we don't add methods - it defaults to 'GET'
+def logout():
+    logout_user() # whatever user is the current_user will be logged out
+    return redirect('/')
+
+@auth.route('/admin')
+def admin():
+
+    users = Users.query.all()
+
+    user_stats = len(users)
+    return render_template('admin.html', users=users, user_stats=user_stats)
+
+
+
+
+
+
+

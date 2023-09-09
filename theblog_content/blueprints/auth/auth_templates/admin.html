@@ -1,0 +1,52 @@
+
+<!-- User page -->
+
+
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    
+    <h1 align="center">Hello Kenai!</h1>
+    <br>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Registered Users: {{ user_stats }}</h5>
+                     
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <div class="container mt-5">
+        <h2 class="user_info">User Information</h2>
+        <div class="row">
+            {% for user in users %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body bg-dark">
+                        <h5 class="card-title custom-username text-center">USERNAME: {{ user.username }}</h5>
+                        <p class="card-text">Email: {{ user.email }}</p>
+                        <p class="card-text">First Name: {{ user.first_name }}</p>
+                        <p class="card-text">Last Name: {{ user.last_name }}</p>
+                        <p class="card-text-role">User Role: {{ user.role }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+
+
+
+
+{% endblock %}
+

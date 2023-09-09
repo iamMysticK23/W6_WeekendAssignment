@@ -6,62 +6,94 @@
 
 {% block content %}
 
-<div class="container d-flex justify-content-center align-items center">
-    <div class="row mt-5 p-5 shadow rounded border border-success text-white bg-dark p-3 w-75">
-        <div class="col d-flex">
-            <img src="https://wallpapercave.com/dwp1x/P3Yrnkb.jpg" class="img-fluid" alt="">
-        </div>
-        <div class="col">
-            <form class="row g-3" method="POST">
-                {{ form.hidden_tag() }}
-                <h3>Register Now!</h3>
-                <div class="col-md-6">
-                    {{ form.first_name.label }}
-                    {{ form.first_name(class='form-control mt-2', placeholder ='John') }}
-                </div>
-                <div class="col-md-6">
-                    {{ form.last_name.label }}
-                    {{ form.last_name(class='form-control mt-2', placeholder ='Doe') }}
-                </div>
-                <div class="col-12">
-                    {{ form.username.label }}
-                    {{ form.username(class='form-control mt-2', placeholder = 'jdoe')}}
-                    {% for error in form.username.errors %}
-                        <span class ="err-msg">{{ error }}</span>
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="col-12">
-                {{ form.email.label }}
-                {{ form.email(class='form-control mt-2', placeholder = 'jdoe@gmail.com' )}}
-                {% for error in form.email.errors %}
-                    <span class="err-msg">{{ error }}</span>
-                {% endfor %}
-            </div>
-            <div class="col-6">
-                {{ form.password.label }}
-                {{ form.password(class='form-control mt-2', placeholder = 'password' )}}
-                {% for error in form.password.errors %}
-                    <span class="err-msg">{{ error }}</span>
-                {% endfor %}
-            </div>
-            <div class="col-6">
-                {{ form.verify_password.label }}
-                {{ form.verify_password(class='form-control mt-2', placeholder = 'password' )}}
-                {% for error in form.verify_password.errors %}
-                    <span class="err-msg">{{ error }}</span>
-                {% endfor %}
-            </div>
-            <div class="col-12 p-2 me-2" >
-                {{ form.submit(class='btn btn-success') }}
-            </div>
+<div class="container p-5 mt-5"> 
+    <div class="card"> 
+        <form class="row g-0" method="POST">
+             <div class="col-md-6"> 
+                <div class="h-100 d-flex justify-content-center align-items-center">
+                     <div class="py-4 px-3">
+                        {{ form.hidden_tag() }}
+                         <h4 class="text-center">REGISTER</h4> 
+                         <div class="row g-2 mt-1"> 
+                            <div class="col-md-6"> 
+                                {{ form.first_name.label }}
+                                {{form.first_name(class='form-control mt-2', placeholder = 'John')}}
+                            </div>
+                             <div class="col-md-6"> 
+                                {{ form.last_name.label }}
+                                {{form.last_name(class='form-control mt-2', placeholder = 'Doe')}}
+                                    </div> 
+                                </div> 
+                                <div class="row mt-2">
+                                     <div class="col-md-12">
+                                        {{ form.username.label }}
+                                        {{ form.username(class='form-control mt-2', placeholder = 'jdoe' )}}
+                                        {% for error in form.username.errors %}
+                                            <span class="err-msg">{{ error }}</span>
+                                        {% endfor %}
+                                         </div>
+                                         </div>
+                                          <div class="row mt-2 mb-2">
+                                            <div class="col-md-12">
+                                                {{ form.email.label }}
+                                                {{ form.email(class='form-control mt-2', placeholder = 'jdoe@gmail.com' )}}
+                                                {% for error in form.email.errors %}
+                                                    <span class="err-msg">{{ error }}</span>
+                                                {% endfor %}
+                                                </div>
+                                             </div> 
+                                             <div class="row mt-2">
+                                                <div class="col-md-12">
+                                                    {{ form.password.label }}
+                                                    {{ form.password(class='form-control mt-2', placeholder = 'password' )}}
+                                                    {% for error in form.password.errors %}
+                                                        <span class="err-msg">{{ error }}</span>
+                                                    {% endfor %}
+                                                    </div>
+                                                    </div>                                            
+                                                <div class="row mt-2">
+                                                    <div class="col-md-12">
+                                                        {{ form.verify_password.label }}
+                                                        {{ form.verify_password(class='form-control mt-2', placeholder = 'password' )}}
+                                                        {% for error in form.verify_password.errors %}
+                                                            <span class="err-msg">{{ error }}</span>
+                                                        {% endfor %}
+                                                        </div>
+                                                    </div>
+                                             <div class="row mt-4">
+                                                 <div class="col-md-12"> 
+                                                    {{ form.submit(class='btn btn-outline-success btn-lg') }}
+                                                 </div> 
+                                                </div> 
+                                                <div class="member mt-1"> 
+                                                    <span>Already a member? </span><a class="text-decoration-none link-success" href="{{ url_for('auth.login') }}">Login</a> 
+                                                </div>
+                                            </div> 
+                                        </div>
+                                    </div>
+                                     <div class="col-md-6"> 
+                                        <div class="right-side-content p-4 mt-4">
+                                             <div class="content d-flex flex-column ">
+                                                <img src="https://t4.ftcdn.net/jpg/05/47/97/81/360_F_547978128_vqEEUYBr1vcAwfRAqReZXTYtyawpgLcC.jpg" width="400" height="400" class="img-fluid rounded" alt=""> 
+                                                 <h6 class="text-right font-italic p-4">The clearest way into the Universe is through a forest wilderness. - John Muir</h6> 
+                                                </div> 
+                                                <div class="right-side"> 
+                                                    <span></span>
+                                                     <span></span> 
+                                                     <span></span> 
+                                                     <span></span> 
+                                                
+                                                     <span></span> 
+                                                     <span></span> 
+                                                     <span></span>
+                                                
+                                                    <span></span>
+                                                 </div> 
+                                                </div>
+                                             </form>
+                                             </div>
+                                             </div>
 
-            </form>
-        </div>
-    </div>
 </div>
 
-
-
 {% endblock %}
-
