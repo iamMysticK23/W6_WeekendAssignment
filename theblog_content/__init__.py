@@ -1,33 +1,45 @@
-from flask import Flask, render_template
+#external imports
+
+from flask import Flask, Blueprint, render_template
+from flask_migrate import Migrate
+from flask_cors import CORS
+from flask_jwt_extended import JWTManager
+
+# internal imports
+from config import Config
+from .models import login_manager, db
+from .blueprints.site.routes import site
+from .blueprints.auth.routes import auth
 
 
 
 app = Flask(__name__)
+app.config.from_object(Config)
+
+# page protection
+login_manager.init_app(app)
+login_manager.login_view = 'auth.sign_in'
+login_manager.login_message = "You must log in to continue."
+login_manager.login_message_category = "warning"
 
 
-# testing the initial setup
-# will need to comment the code below out
-@app.route('/')
-def index():
-    first_name = "Kenai"
-    return render_template("index.html", first_name=first_name)
-# end commented out code
+app.register_blueprint(site)
+app.register_blueprint(auth)
 
-# testing out returning a user
-@app.route('/user/<name>')
-def user(name):
-    return render_template("user.html", name=name)
-# end commented out code
 
-# Custom Error Pages
-# Invalid URL
+
+
+db.init_app(app)
+migrate = Migrate(app, db)
+
+
+# page not found
 @app.errorhandler(404)
 def page_not_found(e):
-        return render_template("404.html"), 404
+    return render_template("404.html"), 404
 
-# Internal Server Error
-# Invalid URL
+# internal server error
 @app.errorhandler(500)
 def page_not_found(e):
-        return render_template("500.html"), 500
+    return render_template("500.html"), 500
 
