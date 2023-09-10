@@ -6,7 +6,7 @@ from flask_login import login_user, logout_user, login_required, current_user
 
 # internal imports
 from theblog_content.forms import RegisterForm, LoginForm, UpdateForm
-from theblog_content.models import Users, db
+from theblog_content.models import Users,Posts, db
 
 # intiantate our auth blueprint 
 auth = Blueprint('auth', __name__, template_folder='auth_templates')

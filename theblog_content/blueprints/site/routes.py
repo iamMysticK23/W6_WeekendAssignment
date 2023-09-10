@@ -2,11 +2,12 @@
 
 # External imports
 from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask_login import login_user, logout_user, login_required, current_user
 
 
 # internal imports
 from theblog_content.forms import PostForm
-from theblog_content.models import Posts, db
+from theblog_content.models import Users, Posts, db
 
 # Blueprint object
 site = Blueprint('site', __name__, template_folder='site_templates')
@@ -35,12 +36,11 @@ def add_post():
     form = PostForm()
 
     if form.validate_on_submit():
-        post = Posts(title= form.title.data, content=form.content.data, author=form.author.data, slug = form.slug.data)
+        post = Posts(title= form.title.data, content=form.content.data, author_id=current_user.user_id, slug = form.slug.data)
 
         # Clear the form
         form.title.data =''
         form.content.data =''
-        form.author.data =''
         form.slug.data = ''
 
         # Add post data to database
@@ -54,7 +54,6 @@ def add_post():
     return render_template("add_post.html", form=form)
 
 
-
 # edit a blog post
 @site.route('/posts/edit/<int:postid>', methods=['GET', 'POST'])
 def edit_post(postid):
@@ -63,7 +62,6 @@ def edit_post(postid):
 
     if form.validate_on_submit():
         post.title = form.title.data
-        post.author = form.author.data
         post.slug = form.slug.data
         post.content = form.content.data
 
@@ -76,7 +74,6 @@ def edit_post(postid):
         return redirect(url_for('site.post', postid=post.postid))
     
     form.title.data = post.title
-    form.author.data = post.author
     form.slug.data = post.slug
     form.content.data = post.content
     return render_template('edit_post.html', form=form)
@@ -102,6 +99,34 @@ def posts():
     posts = Posts.query.order_by(Posts.date_posted)
 
     return render_template("posts.html", posts=posts)
+
+
+
+# delete posts
+@site.route('/posts/delete/<int:postid>')
+def delete_post(postid):
+    post_to_delete = Posts.query.get_or_404(postid)
+
+
+    try:
+        db.session.delete(post_to_delete)
+        db.session.commit()
+
+    # return success message
+        flash (f" Blog post deleted.", category='success')
+    
+    # get all posts
+        posts = Posts.query.order_by(Posts.date_posted)
+        return render_template("posts.html", posts=posts)
+
+    except:
+        # return error message
+
+        flash (f" Problem deleting post. Try again.", category='warning')
+        posts = Posts.query.order_by(Posts.date_posted)
+        return render_template("posts.html", posts=posts)
+         
+
 
 
 

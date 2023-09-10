@@ -20,13 +20,7 @@
         {% endfor %}
     </div>
 
-    <div class="col-md-6">
-        <label for="last_name" class="form-label">{{ form.author.label }}</label>
-        {{ form.author(class='form-control', placeholder='Author') }}
-        {% for error in form.author.errors %}
-            <span class="err-msg">{{ error }}</span>
-        {% endfor %}
-    </div>
+
 
     <div class="col-md-6">
         <label for="email" class="form-label">{{ form.slug.label }}</label>

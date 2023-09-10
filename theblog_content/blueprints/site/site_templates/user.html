@@ -6,32 +6,33 @@
 
 {% block content %}
 
-<div class="container p-5 mt-5 d-flex justify-content-center align-items-center">
-    <div class="row mt-5 mb-5 p-5 shadow rounded border border-secondary bg-dark w-75">
-        <div class="col">
-<div class="card mb-3 align-items-center bg-secondary">
-    <div class="row g-0">
-      <div class="col-md-4 p-5">
-        <img src="https://picsum.photos/200"" class="img-fluid rounded-start" alt="Profile Picture">
-      </div>
-      <div class="col-md-8">
-        <div class="card-body">
-            <h1 class="card-title">Welcome, {{ current_user.first_name |capitalize }}!</h1>
-            <p class="card-text fs-2">You are logged in as {{ current_user.username }}</p>
-            <p class="card-text fs-5">First Name: {{ current_user.first_name }}</p>
-            <p class="card-text fs-5">Last Name: {{ current_user.last_name }}</p>
-            <p class="card-text fs-5">Email: {{ current_user.email }}</p>
-            <p class="card-text fs-5">About: {{ current_user.about_you }}</p>
-
-<a href="{{ url_for('auth.logout') }}" class="btn btn-warning mt-3">Logout</a>
-<a href="{{ url_for('auth.update') }}" class="btn btn-info mt-3">Update Profile</a>
-<a href="{{ url_for('auth.delete', user=current_user) }}" class="btn btn-danger mt-3">Delete Profile</a>
+<div class="container-fluid mt-5">
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <div class="card bg-dark text-white">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="https://picsum.photos/200" class="card-img-top rounded-start img-fluid p-5" alt="Profile Picture">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h1 class="card-title text-center">Welcome, {{ current_user.first_name | capitalize }}!</h1>
+              <p class="card-text fs-2 text-left">You are logged in as {{ current_user.username }}</p>
+              <p class="card-text">First Name: {{ current_user.first_name }}</p>
+              <p class="card-text">Last Name: {{ current_user.last_name }}</p>
+              <p class="card-text">Member Since: {{ current_user.date_added }}</p>
+              <p class="card-text">Email: {{ current_user.email }}</p>
+              <p class="card-text">About: {{ current_user.about_you }}</p>
+              
+              <a href="{{ url_for('auth.logout') }}" class="btn btn-outline-success mt-3 me-2">Logout</a>
+              <a href="{{ url_for('auth.update') }}" class="btn btn-outline-warning mt-3 me-2">Update Profile</a>
+              <a href="{{ url_for('auth.delete', user=current_user) }}" class="btn btn-outline-danger mt-3">Delete Profile</a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  </div>
-  </div>    
 </div>
 
 

@@ -7,6 +7,7 @@ from flask_login import UserMixin, LoginManager
 from datetime import datetime
 import uuid 
 from flask_marshmallow import Marshmallow
+from sqlalchemy import ForeignKey
 
 
 # instantiate DB
@@ -17,6 +18,19 @@ login_manager = LoginManager()
 @login_manager.user_loader
 def load_user(user_id):
     return Users.query.get(user_id)
+
+
+# Blog post model
+class Posts(db.Model):
+    postid = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(255))
+    content = db.Column(db.Text)
+    date_posted = db.Column(db.DateTime, default=datetime.utcnow)
+    slug = db.Column(db.String(255))
+    author_id = db.Column(db.String, db.ForeignKey('users.user_id'), nullable=False)
+
+# Back ref relationship
+    author = db.relationship('Users', backref='poster')
 
 # Users of blog
 class Users(db.Model, UserMixin):
@@ -62,13 +76,5 @@ class Users(db.Model, UserMixin):
         return f" <USER: {self.username}"
 
 
-# Blog post model
-class Posts(db.Model):
-    postid = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(255))
-    content = db.Column(db.Text)
-    author = db.Column(db.String(255))
-    date_posted = db.Column(db.DateTime, default=datetime.utcnow)
-    slug = db.Column(db.String(255))
-    
 
+    
