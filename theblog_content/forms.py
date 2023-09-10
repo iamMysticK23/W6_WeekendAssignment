@@ -22,11 +22,8 @@ class RegisterForm(FlaskForm):
     verify_password = PasswordField('Confirm Password', validators=[ DataRequired(), EqualTo('password')])
     submit = SubmitField('Register')
 
-# create name form
-# this may be deleted
-class NameForm(FlaskForm):
-    name = StringField("What's Your Name?", validators=[DataRequired()])
-    submit = SubmitField("Submit")
+# create update form
+
 
 class UpdateForm(FlaskForm):
     first_name = StringField("First Name", validators=[DataRequired()])

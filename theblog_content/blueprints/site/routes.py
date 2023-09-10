@@ -5,7 +5,7 @@ from flask import Blueprint, render_template, request, flash, redirect, url_for
 
 
 # internal imports
-from theblog_content.forms import NameForm, PostForm
+from theblog_content.forms import PostForm
 from theblog_content.models import Posts, db
 
 # Blueprint object
