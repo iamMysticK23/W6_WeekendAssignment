@@ -28,6 +28,7 @@ class Users(db.Model, UserMixin):
     password = db.Column(db.String, nullable=False)
     date_added = db.Column(db.DateTime, default=datetime.utcnow)
     role = db.Column(db.String(10))
+    about_you = db.Column(db.String(200))
    
 
 

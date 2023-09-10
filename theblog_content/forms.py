@@ -1,7 +1,7 @@
 # Form creation
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, validators
 from wtforms.validators import DataRequired, EqualTo, Email
 
 # create login form
@@ -26,4 +26,13 @@ class RegisterForm(FlaskForm):
 class NameForm(FlaskForm):
     name = StringField("What's Your Name?", validators=[DataRequired()])
     submit = SubmitField("Submit")
+
+class UpdateForm(FlaskForm):
+    first_name = StringField("First Name", validators=[DataRequired()])
+    last_name = StringField('Last Name', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired()])
+    image = StringField("Image URL")
+    about_you = TextAreaField("Short bio about you", validators=[validators.Length(max=500)],
+        render_kw={"rows": 4, "cols": 50})
+    submit = SubmitField('Submit Changes')
 

@@ -7,8 +7,21 @@
 
 {% block content %}
 
+    <br>
+    <br>
     
-    <h1 align="center">Hello Kenai!</h1>
+    <div class="container mt-5">
+        <div class="row justify-content-start">
+            <div class="col-md-4">
+                <div class="card bg-dark">
+                    <div class="card-body text-center text-white">
+                        <h5 class="card-title">Hello Admin: {{ current_user.first_name |capitalize }}! </h5>
+                     
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <br>
     <div class="container mt-5">
         <div class="row justify-content-center">

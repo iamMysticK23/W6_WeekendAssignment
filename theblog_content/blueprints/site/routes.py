@@ -16,15 +16,14 @@ site = Blueprint('site', __name__, template_folder='site_templates')
 # will need to comment the code below out
 @site.route('/')
 def index():
-    first_name = "Kenai"
-    return render_template('index.html', first_name=first_name)
+    return render_template('index.html')
 # end commented out code
 
 # testing out returning a user
 # may need to comment the code below out
-@site.route('/user/<name>')
-def user(name):
-    return render_template('user.html', name=name)
+@site.route('/user')
+def user():
+    return render_template('user.html')
 # end commented out code
 
 

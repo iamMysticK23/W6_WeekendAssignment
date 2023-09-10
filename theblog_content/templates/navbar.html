@@ -11,7 +11,7 @@
           </li>
           {% if current_user.is_authenticated %}
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('site.user', name='kenai') }}">Your Profile</a>
+            <a class="nav-link" href="{{ url_for('site.user') }}">Your Profile</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/logout">Logout</a>
@@ -43,7 +43,7 @@
         </ul>
         <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
+          <button class="btn btn-outline-secondary" type="submit">Search</button>
         </form>
       </div>
     </div>

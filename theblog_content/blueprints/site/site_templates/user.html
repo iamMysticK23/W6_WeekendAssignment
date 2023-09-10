@@ -6,8 +6,40 @@
 
 {% block content %}
 
+<div class="container p-5 mt-5 d-flex justify-content-center align-items-center">
+    <div class="row mt-5 mb-5 p-5 shadow rounded border border-secondary bg-dark w-75">
+        <div class="col">
+<div class="card mb-3 align-items-center bg-secondary">
+    <div class="row g-0">
+      <div class="col-md-4 p-5">
+        <img src="https://picsum.photos/200"" class="img-fluid rounded-start" alt="Profile Picture">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+            <h1 class="card-title">Welcome, {{ current_user.first_name |capitalize }}!</h1>
+            <p class="card-text fs-2">You are logged in as {{ current_user.username }}</p>
+            <p class="card-text fs-5">First Name: {{ current_user.first_name }}</p>
+            <p class="card-text fs-5">Last Name: {{ current_user.last_name }}</p>
+            <p class="card-text fs-5">Email: {{ current_user.email }}</p>
+            <p class="card-text fs-5">About: {{ current_user.about_you }}</p>
 
-    <h1>Hello {{ name|title }} </h1>
+<a href="{{ url_for('auth.logout') }}" class="btn btn-warning mt-3">Logout</a>
+<a href="{{ url_for('auth.update') }}" class="btn btn-info mt-3">Update Profile</a>
+<a href="{{ url_for('auth.delete', user=current_user) }}" class="btn btn-danger mt-3">Delete Profile</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>    
+</div>
+
+
+
+
+                
+
+ 
 
 
 
