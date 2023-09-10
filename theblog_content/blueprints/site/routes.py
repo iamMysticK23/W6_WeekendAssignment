@@ -6,7 +6,7 @@ from flask_login import login_user, logout_user, login_required, current_user
 
 
 # internal imports
-from theblog_content.forms import PostForm
+from theblog_content.forms import PostForm, SearchForm, LoginForm, RegisterForm, UpdateForm
 from theblog_content.models import Users, Posts, db
 
 # Blueprint object
@@ -49,6 +49,7 @@ def add_post():
 
         # Return the message
         flash (f" Blog post submitted successfully!", category='success')
+        return redirect(url_for('site.post', postid=post.postid))
 
         # redirect to webpage
     return render_template("add_post.html", form=form)
@@ -56,6 +57,7 @@ def add_post():
 
 # edit a blog post
 @site.route('/posts/edit/<int:postid>', methods=['GET', 'POST'])
+@login_required
 def edit_post(postid):
     post = Posts.query.get_or_404(postid)
     form = PostForm()
@@ -73,10 +75,19 @@ def edit_post(postid):
         flash (f" Blog post updated successfully!", category='success')
         return redirect(url_for('site.post', postid=post.postid))
     
-    form.title.data = post.title
-    form.slug.data = post.slug
-    form.content.data = post.content
-    return render_template('edit_post.html', form=form)
+    # only allow correct user to go to the edit page
+    if current_user.user_id == post.author_id:
+    
+        form.title.data = post.title
+        form.slug.data = post.slug
+        form.content.data = post.content
+        return render_template('edit_post.html', form=form)
+    else:
+        flash (f" Not authorized to edit this post.", category='warning')
+        posts = Posts.query.order_by(Posts.date_posted)
+
+        return render_template("posts.html", posts=posts)
+
 
 
 
@@ -104,29 +115,66 @@ def posts():
 
 # delete posts
 @site.route('/posts/delete/<int:postid>')
+@login_required
 def delete_post(postid):
     post_to_delete = Posts.query.get_or_404(postid)
+    id = current_user.user_id
+    if id == post_to_delete.author_id:
 
 
-    try:
-        db.session.delete(post_to_delete)
-        db.session.commit()
+        try:
+            db.session.delete(post_to_delete)
+            db.session.commit()
 
-    # return success message
-        flash (f" Blog post deleted.", category='success')
-    
-    # get all posts
+        # return success message
+            flash (f" Blog post deleted.", category='success')
+        
+        # get all posts
+            posts = Posts.query.order_by(Posts.date_posted)
+            return render_template("posts.html", posts=posts)
+
+        except:
+            # return error message
+
+            flash (f" Problem deleting post. Try again.", category='warning')
+            posts = Posts.query.order_by(Posts.date_posted)
+            return render_template("posts.html", posts=posts)
+    else:
+        flash (f" Not authorized to delete this post.", category='warning')
+        
+        # get all posts
         posts = Posts.query.order_by(Posts.date_posted)
         return render_template("posts.html", posts=posts)
+            
 
-    except:
-        # return error message
 
-        flash (f" Problem deleting post. Try again.", category='warning')
-        posts = Posts.query.order_by(Posts.date_posted)
-        return render_template("posts.html", posts=posts)
-         
 
+# pass info to navbar
+@site.context_processor
+def base():
+    form = SearchForm()
+    return dict(form=form)
+
+
+
+# search bar feature
+@site.route('/search', methods=["POST"])
+def search():
+    form = SearchForm()
+
+
+    posts = Posts.query
+
+    if form.validate_on_submit():
+
+        # get data from submitted form
+        post.searched = form.searched.data
+
+        # query db
+        posts = posts.filter(Posts.content.like('%' + post.searched + '%'))
+        posts = posts.order_by(Posts.title).all()
+
+        return render_template("search.html", form=form, searched= post.searched, posts=posts)
 
 
 

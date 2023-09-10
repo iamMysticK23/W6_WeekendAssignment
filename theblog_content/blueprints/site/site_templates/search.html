@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+
+
+
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col">
+            <div class="card mb-4">
+                <div class="card-body text-center bg-dark">
+                    <h2 class="text-light">RESULTS SHOWN FOR:</h2>
+                    <p class="text-success p-2 fs-4">{{ searched }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        {% if posts %}
+        {% for post in posts %}
+        <div class="row mt-2 mb-5 justify-content-center">
+            <div class="card d-flex rounded shadow flex-row w-75 p-3 bg-dark ">
+                <div class="d-flex align-items-center" style="width: 230px; height: 230px;"> <!-- Adjust width and height as needed -->
+                    <img src="https://picsum.photos/500" class="img-fluid rounded" alt="user added photo">
+                </div>
+                <div class="card-body d-flex flex-column justify-content-center p-4">
+                    <h5 class="card-title text-warning font-weight-bold text-md text-uppercase">{{ post.title }}<br></h5>
+                    <p class="card-text text-warning font-weight-bold text-lg text-uppercase">Author: {{ post.author.username }}</p>
+                    <p class="card-text text-white">Date Added: {{ post.date_posted }}</p>
+                    <p class="card-text text-white mt-5">{{ post.content|safe }}</p>
+                    <br>
+                    <a href="{{ url_for('site.post', postid=post.postid) }}" class="btn btn-outline-success mt-5 mb-3">View Post</a>
+                    <br>
+                    {% if post.author_id == current_user.user_id %}
+                    <a href="{{ url_for('site.edit_post', postid=post.postid) }}" class="btn btn-outline-warning mb-3">Edit Post</a>
+                    <br>
+                    <a href="{{ url_for('site.delete_post', postid=post.postid) }}" class="btn btn-outline-danger">Delete Post</a>
+        
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        {% else %}
+        <p>Sorry, your search term: <strong> {{ searched }} returned no results</strong></p>
+        {% endif %}
+    </div>
+</div>
+
+
+{% endblock %}

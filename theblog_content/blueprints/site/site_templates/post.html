@@ -29,7 +29,7 @@
             <h5 class="card-title text-warning font-weight-bold text-md text-uppercase">{{ post.title }}<br></h5>
             <p class="card-text text-warning font-weight-bold text-lg text-uppercase">Author: {{ post.author.username }}</p>
             <p class="card-text text-white mt-2 mb-2">Date Added: {{ post.date_posted }}</p>
-            <p class="card-text text-white mb-5 mt-5">{{ post.content }}</p>
+            <p class="card-text text-white mb-5 mt-5">{{ post.content|safe }}</p>
         </div>
     </div>
 </div>
@@ -38,11 +38,13 @@
       <div class="col-md-4 col-12 mb-2">
         <a href="{{ url_for('site.posts') }}" class="btn btn-outline-success btn-sm w-100">Back To Blog</a>
       </div>
+      {% if post.author_id == current_user.user_id %}
       <div class="col-md-4 col-12 mb-2">
         <a href="{{ url_for('site.edit_post', postid=post.postid) }}" class="btn btn-outline-warning btn-sm w-100">Edit Post</a>
       </div>
       <div class="col-md-4 col-12">
         <a href="{{ url_for('site.delete_post', postid=post.postid) }}" class="btn btn-outline-danger btn-sm w-100">Delete Post</a>
+        {% endif %}
       </div>
     </div>
   </div>

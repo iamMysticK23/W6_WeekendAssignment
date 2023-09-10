@@ -8,6 +8,7 @@ from datetime import datetime
 import uuid 
 from flask_marshmallow import Marshmallow
 from sqlalchemy import ForeignKey
+from flask_ckeditor import CKEditor
 
 
 # instantiate DB

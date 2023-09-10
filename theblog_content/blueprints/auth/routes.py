@@ -3,10 +3,12 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from werkzeug.security import check_password_hash
 from flask_login import login_user, logout_user, login_required, current_user
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField
 
 # internal imports
-from theblog_content.forms import RegisterForm, LoginForm, UpdateForm
-from theblog_content.models import Users,Posts, db
+from theblog_content.forms import PostForm, SearchForm, LoginForm, RegisterForm, UpdateForm
+from theblog_content.models import Users, Posts, db
 
 # intiantate our auth blueprint 
 auth = Blueprint('auth', __name__, template_folder='auth_templates')
@@ -87,12 +89,16 @@ def login():
 
 
 @auth.route('/admin')
+@login_required
 def admin():
 
     users = Users.query.all()
 
     user_stats = len(users)
-    return render_template('admin.html', users=users, user_stats=user_stats)
+
+    form = SearchForm()
+    
+    return render_template('admin.html', users=users, user_stats=user_stats, form=form)
 
 
 @auth.route('/update', methods = ['GET', 'POST']) 

@@ -4,6 +4,7 @@ from flask import Flask, Blueprint, render_template
 from flask_migrate import Migrate
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
+from flask_ckeditor import CKEditor
 
 # internal imports
 from config import Config
@@ -14,6 +15,10 @@ from .blueprints.auth.routes import auth
 
 
 app = Flask(__name__)
+
+# created a rich text editor
+
+ckeditor = CKEditor(app)
 app.config.from_object(Config)
 
 # page protection
