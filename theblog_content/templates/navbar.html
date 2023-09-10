@@ -14,15 +14,19 @@
             <a class="nav-link" href="{{ url_for('site.user') }}">Your Profile</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('site.add_post') }}">Add Blog Post</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('site.posts') }}">View Blog Posts</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="/logout">Logout</a>
           </li>
           {% if current_user.role=='admin' %} {# Check if the user is an admin #}
           <li class="nav-item">
             <a class="nav-link" href="/admin">Admin Dashboard</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('site.name' ) }}">Name(Test Link)</a>
-          </li>
+
           {% endif %}
           
           {% else %}

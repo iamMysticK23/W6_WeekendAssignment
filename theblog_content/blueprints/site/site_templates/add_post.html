@@ -1,0 +1,59 @@
+
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div class="container d-flex justify-content-center align-items-center">
+    <div class="row mt-5 mb-5 p-5 shadow rounded border border-secondary bg-dark w-75">
+        <div class="col">
+            <h3 class="text-white">Add Blog Post</h3>
+          
+<form class="row g-3" method="POST">
+    {{ form.hidden_tag() }}
+    <div class="col-md-6">
+        <label for="first_name" class="form-label">{{ form.title.label }}</label>
+        {{ form.title(class='form-control', placeholder='Blog Title') }}
+        {% for error in form.title.errors %}
+            <span class="err-msg">{{ error }}</span>
+        {% endfor %}
+    </div>
+
+    <div class="col-md-6">
+        <label for="last_name" class="form-label">{{ form.author.label }}</label>
+        {{ form.author(class='form-control', placeholder='Author') }}
+        {% for error in form.author.errors %}
+            <span class="err-msg">{{ error }}</span>
+        {% endfor %}
+    </div>
+
+    <div class="col-md-6">
+        <label for="email" class="form-label">{{ form.slug.label }}</label>
+        {{ form.slug(class='form-control', placeholder='Slug') }}
+        {% for error in form.slug.errors %}
+            <span class="err-msg">{{ error }}</span>
+        {% endfor %}
+    </div>
+
+    <div class="col-12">
+        <label for="aboutyou" class="form-label">{{ form.contentlabel }}</label>
+        {{ form.content(class='form-control', rows='8', placeholder='Content') }}
+        {% for error in form.content.errors %}
+            <span class="err-msg">{{ error }}</span>
+        {% endfor %}
+    </div>
+
+    <div class="col-12">
+        {{ form.submit(class='btn btn-success') }}
+    </div>
+</form>
+</div>
+</div>
+</div>
+
+
+
+
+
+{% endblock %}

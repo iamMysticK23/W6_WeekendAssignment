@@ -62,6 +62,13 @@ class Users(db.Model, UserMixin):
         return f" <USER: {self.username}"
 
 
-
-
+# Blog post model
+class Posts(db.Model):
+    postid = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(255))
+    content = db.Column(db.Text)
+    author = db.Column(db.String(255))
+    date_posted = db.Column(db.DateTime, default=datetime.utcnow)
+    slug = db.Column(db.String(255))
+    
 

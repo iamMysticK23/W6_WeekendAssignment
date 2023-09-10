@@ -3,6 +3,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, validators
 from wtforms.validators import DataRequired, EqualTo, Email
+from wtforms.widgets import TextArea
 
 # create login form
 class LoginForm(FlaskForm):
@@ -35,4 +36,12 @@ class UpdateForm(FlaskForm):
     about_you = TextAreaField("Short bio about you", validators=[validators.Length(max=500)],
         render_kw={"rows": 4, "cols": 50})
     submit = SubmitField('Submit Changes')
+
+# post form
+class PostForm(FlaskForm):
+    title = StringField("Title",validators=[DataRequired()] )
+    content =StringField("Content",validators=[DataRequired()], widget=TextArea())
+    author =StringField("Author",validators=[DataRequired()])
+    slug =StringField("Slug",validators=[DataRequired()])
+    submit = SubmitField("Submit")
 
