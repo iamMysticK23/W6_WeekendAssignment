@@ -3,12 +3,14 @@
 # External imports
 import os
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-from flask_login import login_user, logout_user, login_required, current_user
+from flask_login import login_required, current_user
 
 
 # internal imports
-from theblog_content.forms import PostForm, SearchForm, LoginForm, RegisterForm, UpdateForm
+from theblog_content.forms import PostForm, SearchForm, UpdateForm
 from theblog_content.models import Users, Posts, db
+
+
 
 # Blueprint object
 site = Blueprint('site', __name__, template_folder='site_templates')
@@ -16,7 +18,7 @@ site = Blueprint('site', __name__, template_folder='site_templates')
 
 
 
-# testing the initial setup
+# homepage route
 
 @site.route('/')
 def index():
@@ -25,10 +27,15 @@ def index():
 
 
 
+# individual user page
+
 @site.route('/user', methods=['GET', 'POST'])
 @login_required
+
 def user():
-    # Instantiate the form
+
+    # Instantiate the form for updating a user profile
+
     user = Users.query.get(current_user.user_id)
     updateform = UpdateForm(first_name=user.first_name,
         last_name=user.last_name,
@@ -58,7 +65,8 @@ def user():
 
 
 
-# create post page
+# post route
+
 @site.route('/add-post', methods=['GET', 'POST'])
 def add_post():
     form = PostForm()
@@ -84,6 +92,7 @@ def add_post():
 
 
 # edit a blog post
+
 @site.route('/posts/edit/<int:postid>', methods=['GET', 'POST'])
 @login_required
 def edit_post(postid):
@@ -119,14 +128,11 @@ def edit_post(postid):
 
 
 
-
-
 # show only one blog post
 @site.route('/posts/<int:postid>')
 def post(postid):
     post = Posts.query.get_or_404(postid)
     return render_template('post.html', post=post)
-
 
 
 
@@ -138,7 +144,6 @@ def posts():
     posts = Posts.query.order_by(Posts.date_posted)
 
     return render_template("posts.html", posts=posts)
-
 
 
 # delete posts
@@ -176,8 +181,7 @@ def delete_post(postid):
             
 
 
-
-# pass info to navbar
+# pass info to navbar for search bar
 @site.context_processor
 def base():
     form = SearchForm()
@@ -186,6 +190,7 @@ def base():
 
 
 # search bar feature
+
 @site.route('/search', methods=["POST"])
 def search():
     form = SearchForm()

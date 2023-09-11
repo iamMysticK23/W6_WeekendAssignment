@@ -3,14 +3,14 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from werkzeug.security import check_password_hash
 from flask_login import login_user, logout_user, login_required, current_user
-from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
+
 
 # internal imports
-from theblog_content.forms import PostForm, SearchForm, LoginForm, RegisterForm, UpdateForm
-from theblog_content.models import Users, Posts, db
 
-# intiantate our auth blueprint 
+from theblog_content.forms import SearchForm, LoginForm, RegisterForm, UpdateForm
+from theblog_content.models import Users, db
+
+# intiantate auth blueprint 
 auth = Blueprint('auth', __name__, template_folder='auth_templates')
 
 
@@ -19,10 +19,11 @@ auth = Blueprint('auth', __name__, template_folder='auth_templates')
 def register():
     
 
-    # we need to instantiate our form
+    # instantiate form
     registerform = RegisterForm()
 
     if request.method == 'POST' and registerform.validate_on_submit():
+
         # grab the input data from the form and save it to variables
         first_name = registerform.first_name.data
         last_name = registerform.last_name.data
@@ -45,17 +46,18 @@ def register():
         # instantiate a user object and commit to the db
         user = Users(username, email,password, first_name=first_name, last_name=last_name)
 
-        # add the user object to our database and commit the changes
+        # add the user object to database and commit the changes
         db.session.add(user)
         db.session.commit()
 
         flash (f" {username} has been registered", category='success')
-        return redirect('/login') #  add login here
+        return redirect('/login') 
 
     return render_template('register.html', form=registerform)  
 
 
-# Log in
+
+# User login
 @auth.route('/login', methods = ['GET', 'POST'])
 def login():
 
@@ -69,17 +71,19 @@ def login():
         user = Users.query.filter(Users.username == username).first()
         print(user)
 
-        if user and check_password_hash(user.password, password): # if there is a user that matches the email and the passwords match
-            login_user(user) # this we have access to because of the UserMixin we inherited
+        if user and check_password_hash(user.password, password): 
+            login_user(user) 
+
+            # Check for admin in "role" column of database
             if user.role == 'admin':
                 flash(f" Successfully logged in admin {username}", category='success')
                 return redirect('/admin')
+            
             else:
-            # using the user_loader() function we made so now that will be the current_user of the site
+            
                 flash(f" Successfully logged in user {username}", category='success')
                 return redirect('/posts')
      
-        
         else:
             flash(f" Invalid username and/or password. Please try again", category='warning')
             return redirect('/login')
@@ -87,6 +91,8 @@ def login():
     return render_template('login.html', form=loginform)
 
 
+
+# Admin route
 
 @auth.route('/admin')
 @login_required
@@ -101,6 +107,8 @@ def admin():
     return render_template('admin.html', users=users, user_stats=user_stats, form=form)
 
 
+
+# Delete user route
 
 @auth.route('/user/delete')
 @login_required
@@ -118,9 +126,11 @@ def delete():
     return redirect('/')
 
 
+# Logout route
+
 @auth.route('/logout') 
 def logout():
-    logout_user() # whatever user is the current_user will be logged out
+    logout_user() 
     return redirect('/')
 
 

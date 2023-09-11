@@ -1,4 +1,4 @@
-# Form creation/external imports
+#external imports
 
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, validators
@@ -8,13 +8,16 @@ from flask_ckeditor import CKEditorField
 
 
 # create login form
+
 class LoginForm(FlaskForm):
     username = StringField('Username', validators= [DataRequired() ])
     password = PasswordField('Password', validators = [DataRequired() ])
     remember_me = BooleanField('Remember Me')
     submit = SubmitField('Sign In')
 
+
 # create register form
+
 class RegisterForm(FlaskForm):
     first_name = StringField('First Name')
     last_name = StringField('Last Name')
@@ -24,8 +27,9 @@ class RegisterForm(FlaskForm):
     verify_password = PasswordField('Confirm Password', validators=[ DataRequired(), EqualTo('password')])
     submit = SubmitField('Register')
 
-# create update form
 
+
+# create update form
 
 class UpdateForm(FlaskForm):
     first_name = StringField("First Name", validators=[DataRequired()])
@@ -36,7 +40,8 @@ class UpdateForm(FlaskForm):
         render_kw={"rows": 4, "cols": 50})
     submit = SubmitField('Submit Changes')
 
-# post form
+# create blog post form
+
 class PostForm(FlaskForm):
     title = StringField("Title",validators=[DataRequired()] )
     # content =StringField("Content",validators=[DataRequired()], widget=TextArea())
@@ -44,7 +49,8 @@ class PostForm(FlaskForm):
     slug =StringField("Slug",validators=[DataRequired()])
     submit = SubmitField("Submit")
 
-# search form
+# create search form
+
 class SearchForm(FlaskForm):
     searched = StringField('Searched', validators= [DataRequired() ])
     submit = SubmitField('Sign In')

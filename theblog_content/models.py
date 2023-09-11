@@ -13,7 +13,6 @@ from flask_ckeditor import CKEditor
 
 
 
-
 # instantiate DB
 db = SQLAlchemy()
 
@@ -27,6 +26,7 @@ def load_user(user_id):
 
 
 # Blog post model
+
 class Posts(db.Model):
     postid = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(255))
@@ -35,10 +35,15 @@ class Posts(db.Model):
     slug = db.Column(db.String(255))
     author_id = db.Column(db.String, db.ForeignKey('users.user_id'), nullable=False)
 
-# Back ref relationship
+
+# Backref relationship
+
     author = db.relationship('Users', backref='poster')
 
-# Users of blog
+
+
+# Users of blog model
+
 class Users(db.Model, UserMixin):
     user_id = db.Column(db.String, primary_key=True)
     first_name = db.Column(db.String(50), nullable=False)
@@ -66,15 +71,14 @@ class Users(db.Model, UserMixin):
     def set_id(self):
         return str(uuid.uuid4())
     
+    
     def get_id(self):
         return str(self.user_id)
+    
 
     def set_password(self, password):
         return generate_password_hash(password)
     
-
-
-        return image
 
     def is_admin(self):
         return self.role == 'admin'

@@ -7,17 +7,18 @@ from flask_jwt_extended import JWTManager
 from flask_ckeditor import CKEditor
 
 # internal imports
+
 from config import Config
 from .models import login_manager, db
 from .blueprints.site.routes import site
 from .blueprints.auth.routes import auth
 
-
+# intantiate  Flask
 
 app = Flask(__name__)
 
-# created a rich text editor
 
+# created a rich text editor
 ckeditor = CKEditor(app)
 app.config.from_object(Config)
 
@@ -28,12 +29,13 @@ login_manager.login_message = "You must log in to continue."
 login_manager.login_message_category = "warning"
 
 
+# blueprints
 app.register_blueprint(site)
 app.register_blueprint(auth)
 
 
 
-
+# database init
 db.init_app(app)
 migrate = Migrate(app, db)
 
