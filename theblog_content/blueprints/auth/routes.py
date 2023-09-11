@@ -73,11 +73,11 @@ def login():
             login_user(user) # this we have access to because of the UserMixin we inherited
             if user.role == 'admin':
                 flash(f" Successfully logged in admin {username}", category='success')
-                return redirect('/')
+                return redirect('/admin')
             else:
             # using the user_loader() function we made so now that will be the current_user of the site
                 flash(f" Successfully logged in user {username}", category='success')
-                return redirect('/')
+                return redirect('/posts')
      
         
         else:
