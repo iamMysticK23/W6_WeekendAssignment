@@ -9,7 +9,9 @@ CRUD Requirements were met as follows:
 C- Users can be created by a person registering
     - Users are initally set up under the role of "blogger". There is another role called "admin" that simulates what an administrator would see running a blog.
         I wanted to do more with this, but I was able to set it up to where you can see all the users in individual cards and a running count of current people registered
-    - I made a testing account for the instructor grading: username- codingtemple | password- test4
+    - I made a testing account for the instructor grading: 
+    
+    - username- codingtemple | password- test4
 
 R - Users can log into the site, create/update/delete blog posts, update/delete their own user profile
     -Users can only delete their own blog posts. I wanted to set it up to where admins could delete everybody's post but it is something I can probably revisit in the future
