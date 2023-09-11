@@ -11,11 +11,11 @@ C- Users can be created by a person registering
         I wanted to do more with this, but I was able to set it up to where you can see all the users in individual cards and a running count of current people registered
     - I made a testing account for the instructor grading: username- codingtemple | password- test4
 
-R - Users can log into the site, create/update/delete blog posts, update/delete their user profile
-    -Users can only delete their blog posts. I wanted to set it up to where admins could delete everybody's post but it is something I can probably revisit in the future
+R - Users can log into the site, create/update/delete blog posts, update/delete their own user profile
+    -Users can only delete their own blog posts. I wanted to set it up to where admins could delete everybody's post but it is something I can probably revisit in the future
 
 U - Users can update their posts and profiles. I wanted to have a feature that people could use to pull in pictures from the google image API but spent too much time trying to figure 
-    out how to have a user upload their own profile picture.
+    out how to have a user upload their own profile picture
     from their computer instead. That was a fail so I omitted it from the final site. I ended up just using placeholder images from Lorem Picsum so most of the pics on the
     site will change upon refresh.
 
