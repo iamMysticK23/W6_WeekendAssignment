@@ -2,7 +2,7 @@
 
 # External imports
 import os
-from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask import Blueprint, render_template, request, flash, redirect, url_for, jsonify
 from flask_login import login_required, current_user
 
 
@@ -195,19 +195,17 @@ def base():
 def search():
     form = SearchForm()
 
-
-    posts = Posts.query
-
     if form.validate_on_submit():
+        searched = form.searched.data
 
-        # get data from submitted form
-        post.searched = form.searched.data
+        # Query the database to find posts containing the search term in their content
+        posts = Posts.query.filter(Posts.content.like(f'%{searched}%')).order_by(Posts.title).all()
 
-        # query db
-        posts = posts.filter(Posts.content.like('%' + post.searched + '%'))
-        posts = posts.order_by(Posts.title).all()
+        return render_template("search.html", form=form, searched=searched, posts=posts)
 
-        return render_template("search.html", form=form, searched= post.searched, posts=posts)
+    # Continue rendering the search template with the form for form validation errors
+    return render_template("search.html", form=form)
+
 
 
 

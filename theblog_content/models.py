@@ -9,6 +9,7 @@ import uuid
 from flask_marshmallow import Marshmallow
 from sqlalchemy import ForeignKey
 from flask_ckeditor import CKEditor
+from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 
 
 
@@ -18,6 +19,9 @@ db = SQLAlchemy()
 
 # instantiate login_manager
 login_manager = LoginManager()
+
+# instantiate marshmallow
+ma = Marshmallow() 
 
 
 @login_manager.user_loader
@@ -34,6 +38,15 @@ class Posts(db.Model):
     date_posted = db.Column(db.DateTime, default=datetime.utcnow)
     slug = db.Column(db.String(255))
     author_id = db.Column(db.String, db.ForeignKey('users.user_id'), nullable=False)
+
+    def __init__(self, postid, title, content, date_posted, slug, author_id):
+        self.postid = postid
+        self.title = title
+        self.content = content
+        self.date_posted = date_posted
+        self.slug = slug
+        self.author_id = author_id
+
 
 
 # Backref relationship
@@ -88,6 +101,15 @@ class Users(db.Model, UserMixin):
 
 
 
+# Build schema
+class PostSchema(SQLAlchemyAutoSchema):
+    class Meta:
+        model = Posts
+        fields = ('postid', 'title', 'content', 'date_posted', 'slug', 'author_id')
 
 
+
+
+post_schema = PostSchema() # this is for passing one singular product
+posts_schema = PostSchema(many = True) # this is for passing multiple products, list of dictionaries
     

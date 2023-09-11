@@ -41,7 +41,7 @@
                     {% if post.author_id == current_user.user_id %}
                     <a href="{{ url_for('site.edit_post', postid=post.postid) }}" class="btn btn-outline-warning mb-3">Edit Post</a>
                     <br>
-                    <a href="{{ url_for('site.delete_post', postid=post.postid) }}" class="btn btn-outline-danger">Delete Post</a>
+                    <a href="{{ url_for('site.delete_post', postid=post.postid) }}" class="btn btn-danger">Delete Post</a>
         
                     {% endif %}
                 </div>
