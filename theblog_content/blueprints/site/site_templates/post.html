@@ -43,7 +43,7 @@
         <a href="{{ url_for('site.edit_post', postid=post.postid) }}" class="btn btn-outline-warning btn-sm w-100">Edit Post</a>
       </div>
       <div class="col-md-4 col-12">
-        <a href="{{ url_for('site.delete_post', postid=post.postid) }}" class="btn btn-outline-danger btn-sm w-100">Delete Post</a>
+        <a href="{{ url_for('site.delete_post', postid=post.postid) }}" class="btn btn-danger btn-sm w-100">Delete Post</a>
         {% endif %}
       </div>
     </div>

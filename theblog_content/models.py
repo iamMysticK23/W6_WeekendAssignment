@@ -1,4 +1,4 @@
-# internal imports
+# external imports
 
 
 from werkzeug.security import generate_password_hash 
@@ -11,8 +11,13 @@ from sqlalchemy import ForeignKey
 from flask_ckeditor import CKEditor
 
 
+
+
+
 # instantiate DB
 db = SQLAlchemy()
+
+# instantiate login_manager
 login_manager = LoginManager()
 
 
@@ -44,6 +49,7 @@ class Users(db.Model, UserMixin):
     date_added = db.Column(db.DateTime, default=datetime.utcnow)
     role = db.Column(db.String(10), default="blogger")
     about_you = db.Column(db.String(200))
+  
    
 
 
@@ -66,15 +72,17 @@ class Users(db.Model, UserMixin):
     def set_password(self, password):
         return generate_password_hash(password)
     
-    # def is_active(self):
-    #     return True
-    # admin role
+
+
+        return image
 
     def is_admin(self):
         return self.role == 'admin'
 
     def __repr__(self):
         return f" <USER: {self.username}"
+
+
 
 
 

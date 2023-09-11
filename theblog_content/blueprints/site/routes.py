@@ -1,6 +1,7 @@
 
 
 # External imports
+import os
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import login_user, logout_user, login_required, current_user
 
@@ -11,6 +12,7 @@ from theblog_content.models import Users, Posts, db
 
 # Blueprint object
 site = Blueprint('site', __name__, template_folder='site_templates')
+
 
 
 
@@ -44,7 +46,7 @@ def user():
             # Commit changes to the database
             db.session.commit()
 
-            flash(f"{user.first_name}'s profile has been updated", category='success')
+            flash(f" {user.first_name}'s profile has been updated", category='success')
             return redirect(url_for('site.user'))  # Redirect back to the user page
         except Exception as e:
             flash("We were unable to process your request. Please try again", category='warning')
@@ -201,6 +203,7 @@ def search():
         posts = posts.order_by(Posts.title).all()
 
         return render_template("search.html", form=form, searched= post.searched, posts=posts)
+
 
 
 
