@@ -6,9 +6,9 @@ I came up with a blog style site for this. Here is more information about it:
 The blog is called The Blog Spot.
 CRUD Requirements were met as follows:
 
-C- Users can be created by registering
-    -Users are initally set up under the role of "blogger". There is another role called "admin" that simulates what an administrator would see running a blog.
-    I wanted to do more with this, but I was able to set it up to where you can see all the users in a card and a running count of current people registered
+C- Users can be created by a person registering
+    - Users are initally set up under the role of "blogger". There is another role called "admin" that simulates what an administrator would see running a blog.
+        I wanted to do more with this, but I was able to set it up to where you can see all the users in individual cards and a running count of current people registered
     - I made a testing account for the instructor grading: username- codingtemple | password- test4
 
 R - Users can log into the site, create/update/delete blog posts, update/delete their user profile
