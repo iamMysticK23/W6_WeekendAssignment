@@ -5,6 +5,7 @@ from flask_migrate import Migrate
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from flask_ckeditor import CKEditor
+from flask_wtf.csrf import CSRFProtect
 
 # internal imports
 
@@ -17,6 +18,10 @@ from .blueprints.api.routes import api
 # intantiate  Flask
 
 app = Flask(__name__)
+
+# CSRF protect
+csrf = CSRFProtect(app)
+
 
 
 # created a rich text editor
