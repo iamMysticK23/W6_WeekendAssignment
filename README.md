@@ -1,6 +1,6 @@
-Week 6 Weekend Project
-Create full featured CRUD RESTful API
-Creator: Kenai Epps
+:Week 6 Weekend Project
+:Create full featured CRUD RESTful API
+:Creator: Kenai Epps
 
 I came up with a blog style site for this. Here is more information about it:
 
