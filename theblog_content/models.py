@@ -31,7 +31,7 @@ def load_user(user_id):
 
 # Blog post model
 
-class Posts(db.Model):
+class Posts(db.Model, UserMixin):
     postid = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(255))
     content = db.Column(db.Text)
@@ -39,13 +39,7 @@ class Posts(db.Model):
     slug = db.Column(db.String(255))
     author_id = db.Column(db.String, db.ForeignKey('users.user_id'), nullable=False)
 
-    def __init__(self, postid, title, content, date_posted, slug, author_id):
-        self.postid = postid
-        self.title = title
-        self.content = content
-        self.date_posted = date_posted
-        self.slug = slug
-        self.author_id = author_id
+
 
 
 

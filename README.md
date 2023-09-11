@@ -32,3 +32,7 @@ The database models i used were Users and Posts. The relationship is that one us
 backref since that was the relationship between a user and post. a user is an author. 
 I set the site up to where only a registered user can become an author, but anyone(registered or not) can read posts.
 
+API:
+I incorporated the API but I am not 100% confident in the functionality. I tested it and I can get the database info (posts) and delete posts but I when I tried to update posts
+I got errors. Will have to revisit this because I think it has to do with my front end design.
+
