@@ -101,36 +101,6 @@ def admin():
     return render_template('admin.html', users=users, user_stats=user_stats, form=form)
 
 
-@auth.route('/update', methods = ['GET', 'POST']) 
-@login_required
-def update():
-
-    # instantiate our form
-    updateform = UpdateForm()
-    user = current_user
-    print(user)
-
-    if request.method == 'POST' and updateform.validate_on_submit():
-        # grab the input data from the form and save it to variables
-
-        try:
-            user.first_name = updateform.first_name.data
-            user.last_name = updateform.last_name.data
-            user.email = updateform.email.data
-            user.about_you = updateform.about_you.data
-
-
-            # Commit changes to the database
-            db.session.commit()
-
-            flash (f" {user.first_name} 's profile has been updated", category='success')
-        except:
-            flash(" We were unable to process your request. Please try again", category='warning')
-            return redirect('/update')
-
-
-    return render_template('update.html', form=updateform, user=user)
-
 
 @auth.route('/user/delete')
 @login_required

@@ -23,9 +23,35 @@ def index():
 
 
 
-@site.route('/user')
+@site.route('/user', methods=['GET', 'POST'])
+@login_required
 def user():
-    return render_template('user.html')
+    # Instantiate the form
+    user = Users.query.get(current_user.user_id)
+    updateform = UpdateForm(first_name=user.first_name,
+        last_name=user.last_name,
+        email=user.email,
+        about_you=user.about_you)
+
+    if request.method == 'POST' and updateform.validate_on_submit():
+        try:
+            # Update the user's information
+            user.first_name = updateform.first_name.data
+            user.last_name = updateform.last_name.data
+            user.email = updateform.email.data
+            user.about_you = updateform.about_you.data
+
+            # Commit changes to the database
+            db.session.commit()
+
+            flash(f"{user.first_name}'s profile has been updated", category='success')
+            return redirect(url_for('site.user'))  # Redirect back to the user page
+        except Exception as e:
+            flash("We were unable to process your request. Please try again", category='warning')
+            print(e)  # Print the error for debugging
+            return redirect(url_for('site.user'))
+
+    return render_template('user.html', updateform=updateform)
 
 
 
